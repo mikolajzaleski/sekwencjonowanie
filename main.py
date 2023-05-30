@@ -32,14 +32,14 @@ class Tree:
         
         self.strn=strn+val
         print(val)
-        self.children=[]
+        self.child_nodes=[]
         self.strong_weak=strong_weak
         self.purins_pirimidins=purins_primidins
         self.level=level
 
         self.visited=False
-        self.generate_children()
-    def generate_children(self):
+        self.generate_child_nodes()
+    def generate_child_nodes(self):
         if self.level==3:
             None
         search_end=self.val[-(LENGTH-1):]
@@ -90,11 +90,16 @@ class Tree:
                 
                 sw_local.remove(possibilities_sw[possibility[2]])
                 
-                child=Tree(possibility[0],sw_local,purins_local,self.level+1,self.strn)
+                child_node=Tree(possibility[0],sw_local,purins_local,self.level+1,self.strn)
                 
-                self.children.append(child)
+                self.child_nodes.append(child_node)
         
 x=Tree("TCG",["SSA","SST","SWA","SWC","WSG","WWC"],["RRC","RYA","RYG","YRA","YRC","YRT","YYG"],0,"")
 
-print(x)
-print(strn_tab)
+best=0
+for seq in strn_tab:
+    if len(seq)>best:
+        best=len(seq)
+for seq in strn_tab:
+    if len(seq)==best:
+        print(f"Najlepsza sekwencja:{seq}")
